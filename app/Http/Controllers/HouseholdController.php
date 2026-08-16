@@ -56,6 +56,10 @@ class HouseholdController extends Controller
     {
         return Inertia::render('Households/Show', [
             'household' => $household->load('users'),
+            'expenses' => $household->expenses()
+                ->with(['postedBy', 'paidBy', 'splits.user'])
+                ->latest('paid_at')
+                ->get(),
         ]);
     }
 
