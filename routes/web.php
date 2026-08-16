@@ -28,11 +28,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('households', HouseholdController::class);
-
     Route::get('/households/join/{code}', [HouseholdController::class, 'showJoin'])->name('households.showJoin');
     Route::post('/households/join/{code}', [HouseholdController::class, 'join'])->name('households.join');
-
     Route::resource('households.expenses', ExpenseController::class)->shallow();
+    Route::patch('/expenses/{expense}/splits', [ExpenseController::class, 'updateSplits'])->name('expenses.splits.update');
 });
 
 
